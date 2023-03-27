@@ -18,7 +18,7 @@ const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://extraordinary-rugelach-ce47fd.netlify.app",
     methods: ["GET", "POST"],
   },
 });
