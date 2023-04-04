@@ -1,12 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Finel Project",
+  "description": "Final Project",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server":"nodemon server.js"
+    "dev":"nodemon server.js"
+    
   },
   "author": "Mika Givner",
   "license": "MIT",

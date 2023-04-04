@@ -2,18 +2,23 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import connectDB from "./config/db.js";
 import http from "http";
 import { Server } from "socket.io";
-
+import newPlay from "./routes/playRoute.js";
 dotenv.config({ path: "./config/config.env" });
 const app = express();
-
 app.use(express.json());
 app.use(cors());
-
+connectDB();
+app.use("/api/v1/newPlay", newPlay);
 if (process.env.NODE_ENV !== `production`) {
   app.use(morgan(`dev`));
 }
+
+app.get("/", (req, res) =>
+  res.status(200).json({ message: "server is running" })
+);
 const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
