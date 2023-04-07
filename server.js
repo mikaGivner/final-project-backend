@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== `production`) {
 }
 
 app.get("/", (req, res) =>
-  res.status(200).json({ message: "server is running" })
+  res.status(200).json({ message: "server is running now" })
 );
 const buildServer = http.createServer(app);
 
