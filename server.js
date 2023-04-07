@@ -23,8 +23,8 @@ const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
   cors: {
-    origin: "https://extraordinary-rugelach-ce47fd.netlify.app",
-    methods: ["GET", "POST"],
+    origin: "songs-gusser.netlify.app",
+    methods: ["GET", "POST", "PUT"],
   },
 });
 
