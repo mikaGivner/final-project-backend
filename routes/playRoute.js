@@ -3,10 +3,11 @@ import {
   getPlays,
   createPlays,
   getPlay,
+  updatePlay,
 } from "../controllers/playsController.js";
 
 const router = express.Router();
 router.route("/").get(getPlays).post(createPlays);
-router.route("/:gamePin").get(getPlay);
+router.route("/:gamePin").get(getPlay).put(updatePlay);
 
 export default router;
