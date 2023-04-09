@@ -39,13 +39,6 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("participant_added", data);
   });
 });
-io.off("connection", (socket) => {
-  console.log(`UserConnected:${socket.id}`);
-
-  socket.off("add_participant", (data) => {
-    socket.broadcast.emit("participant_added", data);
-  });
-});
 
 const PORT = process.env.PORT || 1000;
 buildServer.listen(
