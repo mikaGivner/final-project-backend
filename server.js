@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== `production`) {
 app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
-let room;
+
 const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
@@ -32,13 +32,12 @@ const io = new Server(buildServer, {
 io.on("connection", (socket) => {
   console.log(`UserConnected:${socket.id}`);
 
-  socket.on("join_room", (data) => {
-    socket.join(data);
-    room = data;
+  socket.on("join_room", (newPin) => {
+    socket.join(newPin);
   });
 
-  socket.on("add_participant", (data) => {
-    io.to(room).emit("participant_added", data);
+  socket.on("add_participant", (newName, newPin) => {
+    io.to(newPin).emit("participant_added", newName);
   });
 
   // socket.on("leave_room", async (name) => {
