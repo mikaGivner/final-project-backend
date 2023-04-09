@@ -1,3 +1,4 @@
+import { useState } from "react";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV !== `production`) {
 app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
+const [room, setRoom] = useState("");
 const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
@@ -33,10 +35,11 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (data) => {
     socket.join(data);
+    setRoom(data);
   });
 
   socket.on("add_participant", (data) => {
-    io.emit("participant_added", data);
+    io.to(room).emit("participant_added", data);
   });
 
   // socket.on("leave_room", async (name) => {
