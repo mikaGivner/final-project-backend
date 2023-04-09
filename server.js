@@ -42,11 +42,11 @@ io.on("connection", (socket) => {
   });
   socket.on("disconnect", () => {
     console.log(`User disconnected:${socket.id}`);
-    // const index = arr.indexOf(newName);
-    //   if (index > -1) {
-    //     arr.splice(index, 1);
-    //   }
-    arr = arr.filter((player) => player.id !== socket.id);
+    const index = arr.indexOf(newName);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    // arr = arr.filter((player) => player.id !== socket.id);
     io.emit("participant_added", arr);
   });
   // socket.off("add_participant", (newName, newPin) => {
