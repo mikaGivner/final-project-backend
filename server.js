@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== `production`) {
 app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
-
+let arr = [];
 const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
@@ -37,7 +37,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    socket.to(newPin).emit("participant_added", newName);
+    arr.push(newName);
+    io.to(newPin).emit("participant_added", arr);
   });
 });
 
