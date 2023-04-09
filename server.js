@@ -36,7 +36,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (data) => {
-    socket.broadcast.emit("participant_added", data);
+    io.emit("participant_added", data);
   });
 
   // socket.on("leave_room", async (name) => {
