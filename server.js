@@ -38,6 +38,9 @@ io.on("connection", (socket) => {
 
   socket.on("add_participant", (newName, newPin) => {
     io.to(newPin).emit("participant_added", newName);
+    io.to(newPin).emit("write_console", (name) => {
+      console.log(`here is the massage ${name}`);
+    });
   });
 
   // socket.on("leave_room", async (name) => {
