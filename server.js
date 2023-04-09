@@ -37,26 +37,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    io.to(newPin).emit("participant_added", newName);
-    io.to(newPin).emit("write_console", (name) => {
-      console.log(`here is the massage ${name}`);
-    });
+    socket.to(newPin).emit("participant_added", newName);
   });
-
-  // socket.on("leave_room", async (name) => {
-  //   const game = await importPlays.findOne({ gamePin: req.params.gamePin });
-  //   // Remove the participant's name from the list of participants
-  //   const updatedParticipants = game.participants.filter(
-  //     (participant) => participant !== name
-  //   );
-  //   // Update the game data in the database
-  //   await importPlays.findOneAndUpdate(
-  //     { gamePin: req.params.gamePin },
-  //     { participants: updatedParticipants }
-  //   );
-  //   // Emit an event to all clients in the room indicating that a participant has left
-  //   io.to(pin).emit("participant_left", name);
-  // });
 });
 
 const PORT = process.env.PORT || 1000;
