@@ -40,6 +40,13 @@ io.on("connection", (socket) => {
     arr.push(newName);
     io.to(newPin).emit("participant_added", arr);
   });
+  socket.off("add_participant", (newName, newPin) => {
+    const index = arr.indexOf(newName);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    io.to(newPin).emit("participant_added", arr);
+  });
 });
 
 const PORT = process.env.PORT || 1000;
