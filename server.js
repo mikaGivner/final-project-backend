@@ -47,15 +47,6 @@ io.on("connection", (socket) => {
   //   }
   //   io.to(newPin).emit("participant_added", arr);
   // });
-  // When a participant leaves the room
-  socket.on("leave_room", (newName, newPin) => {
-    // Get the game data from the database
-    const index = arr.indexOf(newName);
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
-    io.to(newPin).emit("participant_left", arr);
-  });
 });
 
 const PORT = process.env.PORT || 1000;
