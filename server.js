@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("participant_added", data);
   });
 
-  socket.on("leave_room", async (name) => {
+  socket.off("leave_room", async (name) => {
     const game = await importPlays.findOne({ gamePin: req.params.gamePin });
     // Remove the participant's name from the list of participants
     const updatedParticipants = game.participants.filter(
