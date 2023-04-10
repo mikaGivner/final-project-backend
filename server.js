@@ -20,6 +20,7 @@ app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
 let arr = [];
+
 const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
@@ -37,15 +38,19 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    arr.push(newName);
+    arr.push({ name: newName, id: socket.id });
+
     io.to(newPin).emit("participant_added", arr);
   });
   socket.on("disconnect", (newName, newPin) => {
     console.log(`User disconnected:${socket.id}`);
-    const index = arr.indexOf(newName);
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
+    // const index = arr.indexOf(newName);
+    // if (index > -1) {
+    //   arr.splice(index, 1);
+    // }
+    arr = arr.filter((theName) => {
+      theName.id !== socket.id;
+    });
     io.to(newPin).emit("participant_added", arr);
   });
   //   // arr = arr.filter((player) => player.id !== socket.id);
