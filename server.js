@@ -28,7 +28,7 @@ const io = new Server(buildServer, {
     methods: ["GET", "POST", "PUT"],
   },
 });
-
+const PinRender = localStorage.getItem("isAdmin");
 io.on("connection", (socket) => {
   console.log(`UserConnected:${socket.id}`);
 
@@ -37,7 +37,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    arr.push(newName);
+    if (PinRender === newPin) arr.push(`Manager: ${newName}`);
+    else arr.push(newName);
     io.to(newPin).emit("participant_added", arr);
   });
   // socket.on("disconnect", () => {
@@ -47,7 +48,7 @@ io.on("connection", (socket) => {
   //     arr.splice(index, 1);
   //   }
   //   // arr = arr.filter((player) => player.id !== socket.id);
-  //   io.emit("participant_added", arr);
+  //   io.emit("disconnect", arr);
   // });
   // socket.off("add_participant", (newName, newPin) => {
   //   const index = arr.indexOf(newName);
