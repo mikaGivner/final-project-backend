@@ -41,9 +41,9 @@ io.on("connection", (socket) => {
     io.to(newPin).emit("participant_added", arr);
   });
 
-  socket.on("is_admin", (newName, newPin) => {
-    io.to(newPin).emit("is_admin", newName);
-  });
+  // socket.on("is_admin", (newName, newPin) => {
+  //   io.to(newPin).emit("is_admin", newName);
+  // });
   // socket.on("disconnect", () => {
   //   console.log(`User disconnected:${socket.id}`);
   //   const index = arr.indexOf(newName);
