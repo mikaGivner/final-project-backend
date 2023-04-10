@@ -38,16 +38,7 @@ io.on("connection", (socket) => {
 
   socket.on("add_participant", (newName, newPin) => {
     arr.push(newName);
-    socket.newPin = newPin;
     io.to(newPin).emit("participant_added", arr);
-  });
-  socket.on("disconnect", () => {
-    console.log(`User disconnected:${socket.id}`);
-    const index = arr.indexOf(socket.newName);
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
-    io.to(socket.newPin).emit("participant_added", arr);
   });
   // socket.on("disconnect", () => {
   //   console.log(`User disconnected:${socket.id}`);
@@ -66,7 +57,6 @@ io.on("connection", (socket) => {
   //   io.to(newPin).emit("participant_added", arr);
   // });
 });
-
 const PORT = process.env.PORT || 1000;
 buildServer.listen(
   PORT,
