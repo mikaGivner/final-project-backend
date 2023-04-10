@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("is_admin", (newName, newPin) => {
-    io.to(newPin).emit("is_admin", `your admin is:${newName}`);
+    io.to(newPin).emit("is_admin", newName);
   });
   // socket.on("disconnect", () => {
   //   console.log(`User disconnected:${socket.id}`);
