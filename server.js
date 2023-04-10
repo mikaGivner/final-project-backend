@@ -40,10 +40,6 @@ io.on("connection", (socket) => {
     arr.push(newName);
     io.to(newPin).emit("participant_added", arr);
   });
-
-  // socket.on("is_admin", (newName, newPin) => {
-  //   io.to(newPin).emit("is_admin", newName);
-  // });
   // socket.on("disconnect", () => {
   //   console.log(`User disconnected:${socket.id}`);
   //   const index = arr.indexOf(newName);
@@ -51,7 +47,7 @@ io.on("connection", (socket) => {
   //     arr.splice(index, 1);
   //   }
   //   // arr = arr.filter((player) => player.id !== socket.id);
-  //   io.emit("disconnect", arr);
+  //   io.emit("participant_added", arr);
   // });
   // socket.off("add_participant", (newName, newPin) => {
   //   const index = arr.indexOf(newName);
