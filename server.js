@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
 
     io.to(newPin).emit("participant_added", arr);
   });
-  socket.on("disconnect", (newName, newPin) => {
+  socket.on("disconnect", (newPin) => {
     console.log(`User disconnected:${socket.id}`);
     // const index = arr.indexOf(newName);
     // if (index > -1) {
