@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== `production`) {
 app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
-let arr = [];
+let connectParticipants = [];
 let roomNum = "";
 const buildServer = http.createServer(app);
 
@@ -38,32 +38,17 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    arr.push({ name: newName, id: socket.id, room: newPin });
+    connectParticipants.push({ name: newName, id: socket.id, room: newPin });
     roomNum = newPin;
-    io.to(newPin).emit("participant_added", arr);
+    io.to(newPin).emit("participant_added", connectParticipants);
   });
   socket.on("disconnect", () => {
     console.log(`User disconnected:${socket.id}`);
-
-    // const index = arr.indexOf(newName);
-    // if (index > -1) {
-    //   arr.splice(index, 1);
-    // }
-    arr = arr.filter((theName) => {
+    connectParticipants = connectParticipants.filter((theName) => {
       return theName.id !== socket.id;
     });
-    io.to(roomNum).emit("participant_added", arr);
-    //io.emit("participant_added", arr);
+    io.to(roomNum).emit("participant_added", connectParticipants);
   });
-  //   // arr = arr.filter((player) => player.id !== socket.id);
-  //   io.emit("participant_added", arr);
-  // });
-  // socket.off("add_participant", (newName, newPin) => {
-  //   const index = arr.indexOf(newName);
-  //   if (index > -1) {
-  //     arr.splice(index, 1);
-  //   }
-  // });
 });
 const PORT = process.env.PORT || 1000;
 buildServer.listen(
