@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
     // if (index > -1) {
     //   arr.splice(index, 1);
     // }
-    let arr = arr.filter((theName) => {
+    arr = arr.filter((theName) => {
       theName.id !== socket.id;
     });
     io.to(newPin).emit("participant_added", arr);
