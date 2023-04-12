@@ -53,16 +53,16 @@ io.on("connection", (socket) => {
     let game = await axios.get(
       `https://songs-gusses.onrender.com/api/v1/newPlay/${roomNum}`
     );
-
-    let deleteParticipant = game.data.data.participants.filter(
-      (user) => user !== userName
-    );
-    await axios.put(
-      `https://songs-gusses.onrender.com/api/v1/newPlay/${roomNum}`,
-      {
-        participants: deleteParticipant,
-      }
-    );
+    console.log("game:", game);
+    // let deleteParticipant = game.data.data.participants.filter(
+    //   (user) => user !== userName
+    // );
+    // await axios.put(
+    //   `https://songs-gusses.onrender.com/api/v1/newPlay/${roomNum}`,
+    //   {
+    //     participants: deleteParticipant,
+    //   }
+    // );
     //
     io.to(roomNum).emit("participant_added", connectParticipants);
   });
