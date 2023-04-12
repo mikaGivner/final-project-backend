@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
     //   arr.splice(index, 1);
     // }
     arr = arr.filter((theName) => {
-      theName.id !== socket.id;
+      return theName.id !== socket.id;
     });
     //io.to(newPin).emit("participant_added", arr);
     io.emit("participant_added", arr);
