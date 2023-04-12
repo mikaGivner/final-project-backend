@@ -38,13 +38,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    arr.push({ name: newName, id: socket.id });
+    arr.push({ name: newName, id: socket.id, room: newPin });
 
     io.to(newPin).emit("participant_added", arr);
   });
-  socket.on("disconnect", (newName, newPin) => {
-    console.log(`User disconnected:${socket.id}, ${newName}`);
-    console.log();
+  socket.on("disconnect", (socket) => {
+    console.log(`User disconnected:${socket.id}`);
+
     // const index = arr.indexOf(newName);
     // if (index > -1) {
     //   arr.splice(index, 1);
@@ -52,7 +52,7 @@ io.on("connection", (socket) => {
     arr = arr.filter((theName) => {
       theName.id !== socket.id;
     });
-    io.to(newPin).emit("participant_added", arr);
+    io.to(arr[0].room).emit("participant_added", arr);
   });
   //   // arr = arr.filter((player) => player.id !== socket.id);
   //   io.emit("participant_added", arr);
