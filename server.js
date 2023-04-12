@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
     let game = await axios.get(
       `https://songs-gusses.onrender.com/api/v1/newPlay/${roomNum}`
     );
-    console.log("game:", game);
+    console.log("game:", game.data.data);
     // let deleteParticipant = game.data.data.participants.filter(
     //   (user) => user !== userName
     // );
