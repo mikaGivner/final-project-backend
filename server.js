@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
       theName.id !== socket.id;
     });
     //io.to(newPin).emit("participant_added", arr);
-    socket.io.emit("participant_added", arr);
+    socket.emit("participant_added", arr);
   });
   //   // arr = arr.filter((player) => player.id !== socket.id);
   //   io.emit("participant_added", arr);
