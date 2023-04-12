@@ -20,7 +20,7 @@ app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
 let arr = [];
-
+let roomNum = "";
 const buildServer = http.createServer(app);
 
 const io = new Server(buildServer, {
@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
 
   socket.on("add_participant", (newName, newPin) => {
     arr.push({ name: newName, id: socket.id });
-
+    roomNum = newPin;
     io.to(newPin).emit("participant_added", arr);
   });
   socket.on("disconnect", () => {
@@ -52,8 +52,8 @@ io.on("connection", (socket) => {
     arr = arr.filter((theName) => {
       return theName.id !== socket.id;
     });
-    //io.to(newPin).emit("participant_added", arr);
-    io.emit("participant_added", arr);
+    io.to(roomNum).emit("participant_added", arr);
+    //io.emit("participant_added", arr);
   });
   //   // arr = arr.filter((player) => player.id !== socket.id);
   //   io.emit("participant_added", arr);
