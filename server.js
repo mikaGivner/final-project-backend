@@ -36,8 +36,6 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (newPin, newName) => {
     socket.join(newPin);
-    //
-    localStorage.setItem("myGame", { game: newPin, user: newName });
   });
 
   socket.on("add_participant", (newName, newPin) => {
