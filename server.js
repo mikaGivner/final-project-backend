@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("add_participant", (newName, newPin) => {
-    arr.push({ name: newName, id: socket.id });
+    arr.push({ name: newName, id: socket.id, room: newPin });
     roomNum = newPin;
     io.to(newPin).emit("participant_added", arr);
   });
