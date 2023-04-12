@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== `production`) {
 app.get("/", (req, res) =>
   res.status(200).json({ message: "server is running now" })
 );
-let arr = [];
+//let arr = [];
 
 const buildServer = http.createServer(app);
 
@@ -32,7 +32,7 @@ const io = new Server(buildServer, {
 
 io.on("connection", (socket) => {
   console.log(`UserConnected:${socket.id}`);
-
+  let arr = [];
   socket.on("join_room", (newPin) => {
     socket.join(newPin);
   });
