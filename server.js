@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
+import axios from "axios";
 import http from "http";
 import { Server } from "socket.io";
 import newPlay from "./routes/playRoute.js";
@@ -33,20 +34,38 @@ const io = new Server(buildServer, {
 io.on("connection", (socket) => {
   console.log(`UserConnected:${socket.id}`);
 
-  socket.on("join_room", (newPin) => {
+  socket.on("join_room", (newPin, newName) => {
     socket.join(newPin);
+    //
+    localStorage.setItem("myGame", { game: newPin, user: newName });
   });
 
   socket.on("add_participant", (newName, newPin) => {
     connectParticipants.push({ name: newName, id: socket.id, room: newPin });
     roomNum = newPin;
+    userName = newName;
     io.to(newPin).emit("participant_added", connectParticipants);
   });
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
     console.log(`User disconnected:${socket.id}`);
     connectParticipants = connectParticipants.filter((theName) => {
       return theName.id !== socket.id;
     });
+    //
+    let game = await axios.get(
+      `https://songs-gusses.onrender.com/api/v1/newPlay/${roomNum}`
+    );
+
+    let deleteParticipant = game.data.data.participants.filter(
+      (user) => user !== userName
+    );
+    await axios.put(
+      `https://songs-gusses.onrender.com/api/v1/newPlay/${roomNum}`,
+      {
+        participants: deleteParticipant,
+      }
+    );
+    //
     io.to(roomNum).emit("participant_added", connectParticipants);
   });
 });
