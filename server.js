@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
   socket.on("add_participant", (newName, newPin) => {
     connectParticipants.push({ name: newName, id: socket.id, room: newPin });
     roomNum = newPin;
-    userName = newName;
+
     io.to(newPin).emit("participant_added", connectParticipants);
   });
   socket.on("disconnect", async () => {
