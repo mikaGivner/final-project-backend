@@ -42,17 +42,18 @@ io.on("connection", (socket) => {
 
     io.to(newPin).emit("participant_added", arr);
   });
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (socket) => {
     console.log(`User disconnected:${socket.id}`);
 
     // const index = arr.indexOf(newName);
     // if (index > -1) {
     //   arr.splice(index, 1);
     // }
+    let theRoom = arr[0].room;
     arr = arr.filter((theName) => {
       theName.id !== socket.id;
     });
-    io.to(arr[0].room).emit("participant_added", arr);
+    io.to(theRoom).emit("participant_added", arr);
   });
   //   // arr = arr.filter((player) => player.id !== socket.id);
   //   io.emit("participant_added", arr);
