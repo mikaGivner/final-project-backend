@@ -44,14 +44,15 @@ io.on("connection", (socket) => {
   });
   socket.on("disconnect", (newPin) => {
     console.log(`User disconnected:${socket.id}`);
+    console.log();
     // const index = arr.indexOf(newName);
     // if (index > -1) {
     //   arr.splice(index, 1);
     // }
-    arr = arr.filter((theName) => {
+    let arr2 = arr.filter((theName) => {
       theName.id !== socket.id;
     });
-    io.to(newPin).emit("participant_added", arr);
+    io.to(newPin).emit("participant_added", arr2);
   });
   //   // arr = arr.filter((player) => player.id !== socket.id);
   //   io.emit("participant_added", arr);
