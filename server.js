@@ -38,8 +38,13 @@ io.on("connection", (socket) => {
     socket.join(newPin);
   });
 
-  socket.on("add_participant", (newName, newPin) => {
-    connectParticipants.push({ name: newName, id: socket.id, room: newPin });
+  socket.on("add_participant", (newName, newPin, admin) => {
+    connectParticipants.push({
+      name: newName,
+      id: socket.id,
+      room: newPin,
+      isAdmin: admin,
+    });
     roomNum = newPin;
 
     io.to(newPin).emit("participant_added", connectParticipants);
