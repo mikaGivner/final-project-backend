@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
     socket.join(newPin);
   });
   socket.on("game_started", (newPin) => {
-    io.to(newPin).emit("start", true);
+    io.to(newPin).emit("game_started", true);
   });
 
   socket.on("add_participant", (newName, newPin, admin, yourAdmin) => {
