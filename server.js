@@ -37,6 +37,11 @@ io.on("connection", (socket) => {
   socket.on("join_room", (newPin, newName) => {
     socket.join(newPin);
   });
+  socket.on("game_started", (isStart, newPin) => {
+    isStart
+      ? io.to(newPin).emit("start", true)
+      : io.to(newPin).emit("start", false);
+  });
 
   socket.on("add_participant", (newName, newPin, admin, yourAdmin) => {
     connectParticipants.push({
