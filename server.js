@@ -38,18 +38,8 @@ io.on("connection", (socket) => {
   socket.on("join_room", (newPin, newName) => {
     socket.join(newPin);
   });
-
-  socket.on("start_game", (newPin) => {
-    console.log("start_game event received from:", socket.id);
-    io.to(newPin).emit("game_started", true);
-
-    // emit a "start_game_response" event back to the same client
-    socket.emit("start_game_response", true);
-  });
-
-  socket.on("game_started", (isStart, newPin) => {
-    console.log("isStart:", isStart);
-    io.to(newPin).emit("start", isStart);
+  socket.on("game_started", (newPin) => {
+    io.to(newPin).emit("start", true);
   });
 
   socket.on("add_participant", (newName, newPin, admin, yourAdmin) => {
@@ -64,7 +54,6 @@ io.on("connection", (socket) => {
 
     io.to(newPin).emit("participant_added", connectParticipants);
   });
-
   socket.on("disconnect", async () => {
     console.log(`User disconnected:${socket.id}`);
     connectParticipants = connectParticipants.filter((theName) => {
@@ -72,11 +61,6 @@ io.on("connection", (socket) => {
     });
 
     io.to(roomNum).emit("participant_added", connectParticipants);
-  });
-
-  socket.on("start", (data) => {
-    console.log("start event received from:", socket.id);
-    socket.emit("start_game_response", true); // emit "start_game_response" event back to the same client
   });
 });
 const PORT = process.env.PORT || 1000;
