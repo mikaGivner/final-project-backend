@@ -38,6 +38,7 @@ io.on("connection", (socket) => {
     socket.join(newPin);
   });
   socket.on("game_started", (isStart, newPin) => {
+    console.log("isStart:", isStart);
     isStart
       ? io.to(newPin).emit("start", true)
       : io.to(newPin).emit("start", false);
