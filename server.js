@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
   });
   socket.on("game_started", (isStart, newPin) => {
     console.log("isStart:", isStart);
-    io.to(newPin).emit("isStart", isStart);
+    io.to(newPin).emit("start", isStart);
   });
 
   socket.on("add_participant", (newName, newPin, admin, yourAdmin) => {
