@@ -33,24 +33,24 @@ export const createUser = async (req, res) => {
   }
 };
 
-// export const getPlay = async (req, res) => {
-//   try {
-//     const play = await importUsers.findOne({ gamePin: req.params.gamePin });
-//     if (!play) {
-//       throw new Error(`The pin not found`);
-//     }
-//     res.status(200).json({
-//       success: true,
-//       data: play,
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       success: false,
-//       error: err.message,
-//     });
-//     console.log("error:", err);
-//   }
-// };
+export const getUser = async (req, res) => {
+  try {
+    const user = await importUsers.findOne({ userName: req.params.userName });
+    if (!user) {
+      throw new Error(`The user not found`);
+    }
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      error: err.message,
+    });
+    console.log("error:", err);
+  }
+};
 
 // export const updatePlay = async (req, res) => {
 //   const play = await importUsers.findOne({ gamePin: req.params.gamePin });
