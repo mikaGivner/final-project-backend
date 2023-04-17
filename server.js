@@ -7,12 +7,14 @@ import axios from "axios";
 import http from "http";
 import { Server } from "socket.io";
 import newPlay from "./routes/playRoute.js";
+import newUser from "./routes/userRoute.js";
 dotenv.config({ path: "./config/config.env" });
 const app = express();
 app.use(express.json());
 app.use(cors());
 connectDB();
 app.use("/api/v1/newPlay", newPlay);
+app.use("/api/v1/newUser", newUser);
 if (process.env.NODE_ENV !== `production`) {
   app.use(morgan(`dev`));
 }
