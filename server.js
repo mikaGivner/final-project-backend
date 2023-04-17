@@ -27,7 +27,7 @@ const buildServer = http.createServer(app);
 const io = new Server(buildServer, {
   cors: {
     origin: "songs-gusser.netlify.app",
-    methods: ["GET", "POST", "PUT"],
+    methods: ["GET", "POST"],
   },
   pingTimeout: 160000000,
 });
@@ -39,7 +39,9 @@ io.on("connection", (socket) => {
     socket.join(newPin);
   });
   socket.on("game_started", (newPin) => {
-    io.to(newPin).emit("game_started", true);
+    console.log("newPin", newPin);
+    io.to(newPin).emit("game_started", { message: true });
+    callback(null, { message: "Game started successfully!" });
   });
 
   socket.on("add_participant", (newName, newPin, admin, yourAdmin) => {
@@ -64,6 +66,7 @@ io.on("connection", (socket) => {
   });
 });
 const PORT = process.env.PORT || 1000;
+
 buildServer.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
