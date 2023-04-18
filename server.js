@@ -37,7 +37,7 @@ const io = new Server(buildServer, {
 io.on("connection", (socket) => {
   console.log(`UserConnected:${socket.id}`);
 
-  socket.on("join_room", (newPin, userName) => {
+  socket.on("join_room", (newPin) => {
     socket.join(newPin);
   });
   socket.on("game_started", (newPin) => {
