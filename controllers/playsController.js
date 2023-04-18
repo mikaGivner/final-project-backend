@@ -67,3 +67,13 @@ export const updatePlay = async (req, res) => {
   );
   res.status(200).json(updatedPlay);
 };
+
+export const deletePlay = async (req, res) => {
+  const play = await importPlays.findById(req.params.id);
+  if (!play) {
+    res.status(404);
+    throw new Error("movie not found");
+  }
+  await importPlays.deleteOne();
+  res.status(200).json(play);
+};

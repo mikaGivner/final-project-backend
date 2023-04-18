@@ -51,19 +51,3 @@ export const getUser = async (req, res) => {
     console.log("error:", err);
   }
 };
-
-// export const updatePlay = async (req, res) => {
-//   const play = await importUsers.findOne({ gamePin: req.params.gamePin });
-//   if (!play) {
-//     res.status(404);
-//     throw new Error("play is not found");
-//   }
-//   const updatedPlay = await importUsers.findOneAndUpdate(
-//     { gamePin: req.params.gamePin },
-//     req.body,
-//     {
-//       new: true,
-//     }
-//   );
-//   res.status(200).json(updatedPlay);
-// };

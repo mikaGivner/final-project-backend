@@ -31,7 +31,7 @@ const io = new Server(buildServer, {
     origin: "songs-gusser.netlify.app",
     methods: ["GET", "POST"],
   },
-  pingTimeout: 160000000,
+  pingTimeout: 180000,
 });
 
 io.on("connection", (socket) => {
